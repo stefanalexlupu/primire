@@ -35,7 +35,7 @@
               solo
               @click:append="show = !show"
             />
-            <v-btn color="info" @click="onLogin">LOGIN</v-btn>
+            <v-btn color="info" @click="onLogin" :loading="loading">LOGIN</v-btn>
           </v-form>
         </v-container>
         <p>Ești nou în echipă? <router-link to="register">Creează contul tău acum.</router-link></p>
@@ -83,9 +83,11 @@ export default {
         .then(() => {
           this.$router.push('/');
         }, (error) => {
+          this.loading = false;
           this.error = error.message;
         })
         .catch((error) => {
+          this.loading = false;
           console.error(error);
         });
     },

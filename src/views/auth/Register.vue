@@ -122,6 +122,7 @@ export default {
             displayName: this.name,
           });
         }, (error) => {
+          this.loading = false;
           this.error = error.message;
         })
         .then(() => db.collection('volunteers').add(this.makeVolunteer(this.uid)))
@@ -129,6 +130,7 @@ export default {
           this.$router.push('/');
         })
         .catch((reason) => {
+          this.loading = false;
           console.error(reason);
         });
     },
