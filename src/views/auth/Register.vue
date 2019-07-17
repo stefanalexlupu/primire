@@ -50,6 +50,12 @@
                 solo
               />
 
+              <p>Sunt:</p>
+              <v-radio-group v-model="gender" :rules="genderRules" mandatory>
+                <v-radio label="Baiat" value="M" />
+                <v-radio label="Fata" value="F" />
+              </v-radio-group>
+
               <v-checkbox v-model="isPrayerTeam" label="Echipa de rugaciune" />
 
               <v-checkbox
@@ -83,6 +89,7 @@ export default {
       email: '',
       password: '',
       name: '',
+      gender: '',
       isPrayerTeam: false,
       agreeToGdpr: false,
       // form rules
@@ -96,6 +103,9 @@ export default {
       ],
       nameRules: [
         v => !!v || 'Spune-ne cum te cheama',
+      ],
+      genderRules: [
+        v => !!v || 'Esti baiat sau fata?',
       ],
       agreeToGdprRules: [
         v => v || 'Trebuie sa fi de acord ca sa continui.',
@@ -138,6 +148,7 @@ export default {
       const volunteer = {
         uid,
         name: this.name,
+        gender: this.gender,
         sinceParter: 100,
         sincePrimire: 100,
         sinceSectoare: 100,
