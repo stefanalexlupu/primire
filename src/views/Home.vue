@@ -19,7 +19,7 @@ export default {
 
   data() {
     return {
-      loggedIn: auth.currentUser,
+      loggedIn: false,
     };
   },
 
@@ -31,6 +31,17 @@ export default {
 
       return '';
     },
+  },
+
+  mounted() {
+    auth.onAuthStateChanged((user) => {
+      console.log('auth state changed');
+      if (user) {
+        this.loggedIn = true;
+      } else {
+        this.loggedIn = false;
+      }
+    });
   },
 
   methods: {
