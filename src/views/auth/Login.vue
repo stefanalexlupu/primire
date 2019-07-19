@@ -10,7 +10,13 @@
             Intră în cont
           </h2>
         </v-container>
-        <v-container mb-4 pa-0>
+
+        <v-container id="social-login" tag="div">
+        </v-container>
+
+        <v-subheader>Sau logheaza-te cu email si parola</v-subheader>
+
+        <v-container my-4 pa-0>
           <v-form
             ref="form"
             v-model="valid"
@@ -48,6 +54,9 @@
 </template>
 
 <script>
+import firebase from 'firebase';
+import * as firebaseui from 'firebaseui';
+import '../../../node_modules/firebaseui/dist/firebaseui.css';
 import { auth } from '../../firebaseInit';
 
 export default {
@@ -70,6 +79,40 @@ export default {
       loading: false,
       error: '',
     };
+  },
+
+  mounted() {
+    const vm = this;
+    const uiConfig = {
+      signInSuccessUrl: '/',
+      callbacks: {
+        signInSuccessWithAuthResult(authResult) {
+          const { isNewUser } = authResult.additionalUserInfo;
+          if (isNewUser) {
+            vm.$router.push('/user-info');
+            return false;
+          }
+
+          return true;
+        },
+      },
+      signInFlow: 'popup',
+      signInOptions: [
+        // Leave the lines as is for the providers you want to offer your users.
+        {
+          provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+          scopes: ['public_profile'],
+        },
+      ],
+      // tosUrl and privacyPolicyUrl accept either url string or a callback
+      // function.
+      // Terms of service url/callback.
+      tosUrl: '/',
+      // Privacy policy url/callback.
+      privacyPolicyUrl: '/',
+    };
+    const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth);
+    ui.start('#social-login', uiConfig);
   },
 
   methods: {

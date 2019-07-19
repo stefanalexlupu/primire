@@ -35,7 +35,6 @@ export default {
 
   mounted() {
     auth.onAuthStateChanged((user) => {
-      console.log('auth state changed');
       if (user) {
         this.loggedIn = true;
       } else {

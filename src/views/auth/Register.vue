@@ -2,7 +2,7 @@
   <v-container>
     <v-layout row align-center fill-height>
       <v-flex xs12 sm10 md8 lg6 xl2 offset-sm1 offset-md2 offset-lg3 offset-xl4>
-        <v-container mb-2 pa-0 tag="section">
+        <v-container mb-2 px-3 tag="section">
           <h1 class="font-weight-regular">
             Bine ai venit!
           </h1>
@@ -36,28 +36,6 @@
                 solo
                 @click:append="show = !show"
               />
-            </v-container>
-
-            <v-divider />
-
-            <v-container my-2>
-              <v-text-field
-                v-model="name"
-                name="name"
-                :rules="nameRules"
-                label="Numele tău"
-                required
-                solo
-              />
-
-              <p>Sunt:</p>
-              <v-radio-group v-model="gender" :rules="genderRules" mandatory>
-                <v-radio label="Baiat" value="M" />
-                <v-radio label="Fata" value="F" />
-              </v-radio-group>
-
-              <v-checkbox v-model="isPrayerTeam" label="Echipa de rugaciune" />
-
               <v-checkbox
                 v-model="agreeToGdpr"
                 :rules="agreeToGdprRules"
@@ -79,7 +57,7 @@
 </template>
 
 <script>
-import { auth, db } from '../../firebaseInit';
+import { auth } from '../../firebaseInit';
 
 export default {
   data() {
@@ -88,9 +66,6 @@ export default {
       // form data
       email: '',
       password: '',
-      name: '',
-      gender: '',
-      isPrayerTeam: false,
       agreeToGdpr: false,
       // form rules
       valid: true,
@@ -100,12 +75,6 @@ export default {
       ],
       passwordRules: [
         v => v.length >= 8 || 'Parola trebuie sa fie mai lunga de 8 caractere',
-      ],
-      nameRules: [
-        v => !!v || 'Spune-ne cum te cheama',
-      ],
-      genderRules: [
-        v => !!v || 'Esti baiat sau fata?',
       ],
       agreeToGdprRules: [
         v => v || 'Trebuie sa fi de acord ca sa continui.',
@@ -135,30 +104,11 @@ export default {
           this.loading = false;
           this.error = error.message;
         })
-        .then(() => db.collection('volunteers').add(this.makeVolunteer(this.uid)))
-        .then(() => {
-          this.$router.push('/');
-        })
+        .then(() => this.$router.push('/user-info'))
         .catch((reason) => {
           this.loading = false;
           console.error(reason);
         });
-    },
-    makeVolunteer(uid) {
-      const volunteer = {
-        uid,
-        name: this.name,
-        gender: this.gender,
-        sinceParter: 100,
-        sincePrimire: 100,
-        sinceSectoare: 100,
-        sinceRugaciune: 100,
-      };
-
-      if (this.isPrayerTeam) {
-        volunteer.defaultRole = 'rugaciune';
-      }
-      return volunteer;
     },
   },
 };
