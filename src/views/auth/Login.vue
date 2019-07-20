@@ -54,10 +54,8 @@
 </template>
 
 <script>
-import firebase from 'firebase';
 import * as firebaseui from 'firebaseui';
 import '../../../node_modules/firebaseui/dist/firebaseui.css';
-import { auth } from '../../firebaseInit';
 
 export default {
   data() {
@@ -100,7 +98,7 @@ export default {
       signInOptions: [
         // Leave the lines as is for the providers you want to offer your users.
         {
-          provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+          provider: this.$auth.FacebookAuthProvider.PROVIDER_ID,
           scopes: ['public_profile'],
         },
       ],
@@ -111,7 +109,7 @@ export default {
       // Privacy policy url/callback.
       privacyPolicyUrl: '/',
     };
-    const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth);
+    const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(this.$auth());
     ui.start('#social-login', uiConfig);
   },
 
@@ -122,7 +120,7 @@ export default {
       }
 
       this.loading = true;
-      auth.signInWithEmailAndPassword(this.email, this.password)
+      this.$auth().signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
           this.$router.push('/');
         }, (error) => {

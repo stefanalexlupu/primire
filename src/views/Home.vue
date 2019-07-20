@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import { auth } from '../firebaseInit';
 import HelloWorld from '../components/HelloWorld.vue';
 
 export default {
@@ -26,7 +25,7 @@ export default {
   computed: {
     displayName() {
       if (this.loggedIn) {
-        return auth.currentUser.displayName;
+        return this.$auth().currentUser.displayName;
       }
 
       return '';
@@ -34,7 +33,7 @@ export default {
   },
 
   mounted() {
-    auth.onAuthStateChanged((user) => {
+    this.$auth().onAuthStateChanged((user) => {
       if (user) {
         this.loggedIn = true;
       } else {
@@ -45,7 +44,7 @@ export default {
 
   methods: {
     onSignOut() {
-      auth.signOut();
+      this.auth().signOut();
     },
   },
 };

@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import { auth, db } from '../firebaseInit';
 
 export default {
   data() {
@@ -77,7 +76,7 @@ export default {
         return;
       }
 
-      db.collection('volunteers').doc(auth.currentUser.uid).set(this.makeVolunteer())
+      this.$firestore().collection('volunteers').doc(this.$auth().currentUser.uid).set(this.makeVolunteer())
         .then(() => {
           this.$router.push('/');
         })

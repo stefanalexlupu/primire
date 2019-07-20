@@ -57,8 +57,6 @@
 </template>
 
 <script>
-import { auth } from '../../firebaseInit';
-
 export default {
   data() {
     return {
@@ -94,7 +92,7 @@ export default {
 
       this.loading = true;
 
-      auth.createUserWithEmailAndPassword(this.email, this.password)
+      this.$auth().createUserWithEmailAndPassword(this.email, this.password)
         .then(({ user }) => {
           this.uid = user.uid;
           return user.updateProfile({
