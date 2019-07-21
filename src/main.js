@@ -7,7 +7,18 @@ import './registerServiceWorker';
 
 Vue.config.productionTip = false;
 
-new Vue({
-  router,
-  render: h => h(App),
-}).$mount('#app');
+// TODO: Consider displaying a splash screen first.
+
+// We want to only mount the app after firebase auth initializes.
+let appWasMounted = false;
+
+Vue.prototype.$auth().onAuthStateChanged(() => {
+  if (!appWasMounted) {
+    console.log('initializeApp');
+    new Vue({
+      router,
+      render: h => h(App),
+    }).$mount('#app');
+    appWasMounted = true;
+  }
+});
