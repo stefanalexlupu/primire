@@ -1,7 +1,11 @@
 <template>
   <v-app>
     <v-toolbar app dark color="primary">
-      <v-toolbar-side-icon @click="drawer = !drawer" class="hidden-md-and-up"></v-toolbar-side-icon>
+      <v-toolbar-side-icon
+        v-if="loggedIn"
+        @click="drawer = !drawer"
+        class="hidden-md-and-up"
+      />
       <v-toolbar-title>Primire si Rugaciune</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
