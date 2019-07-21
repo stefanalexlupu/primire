@@ -1,11 +1,11 @@
 {
-  "name": "Primire Betel Centru",
-  "short_name": "Primire",
+  "name": "BC Primire",
+  "short_name": "BC Primire",
   "theme_color": "#f7931e",
   "background_color": "#fff0bc",
-  "display": "fullscreen",
+  "display": "standalone",
   "orientation": "portrait",
-  "Scope": "/",
+  "scope": ".",
   "start_url": "/",
   "icons": [
     {
@@ -48,6 +48,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "splash_pages": null
+  ]
 }
