@@ -1,12 +1,13 @@
+
 import firebase from 'firebase/app';
 import firebaseConfig from './firebaseConfig';
+import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/messaging';
-import 'firebase/auth';
 
 firebase.initializeApp(firebaseConfig);
 
-// Initialize Cloud Firestore through Firebase
+export const { auth } = firebase;
+export const { firestore } = firebase;
 
-export const db = firebase.firestore();
-export const auth = firebase.auth();
+export const authInstance = firebase.auth();

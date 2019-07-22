@@ -26,8 +26,6 @@
 </template>
 
 <script>
-import { db } from '../firebaseInit';
-
 export default {
   data() {
     return {
@@ -36,7 +34,7 @@ export default {
     };
   },
   mounted() {
-    this.name = db.collection('test').get().then((querySnapshot) => {
+    this.name = this.$firestore().collection('test').get().then((querySnapshot) => {
       if (querySnapshot.empty) {
         return;
       }
