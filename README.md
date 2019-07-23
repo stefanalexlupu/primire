@@ -2,9 +2,9 @@
 
 The purpose of this web application is to centralize the volunteering schedule from the welcoming department at Betel Centru. We want to make it easier for both volunteers and department leaders to organize the team that volunteers each Sunday at church.
 
-# Contributing
+## Contributing
 
-Feel free to check out our [Code of Conduct](https://github.com/stefanalexlupu/primire/blob/master/CODE_OF_CONDUCT.md). You can request to become a contributor to this project by sending an email to alex.loopu@gmail.com, letting us know about your wish!
+This project adheres to the Contributor Covenant [code of conduct](https://github.com/stefanalexlupu/primire/blob/master/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to alex.loopu@gmail.com.
 
 # Project documentation
 
