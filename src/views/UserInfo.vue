@@ -89,17 +89,21 @@ export default {
       const volunteer = {
         name: this.name,
         gender: this.gender,
-        sinceParter: 100,
-        sincePrimire: 100,
-        sinceSectoare: 100,
-        sinceRugaciune: 100,
+        profilePictureUrl: '',
+        status: 'not-registered',
         history: [],
       };
 
       if (this.isPrayerTeam) {
         volunteer.defaultRole = 'rugaciune';
       }
-      console.log(volunteer);
+
+      // Try get the facebook profile picture at 250px;
+      const fbProvider = this.$auth().currentUser.providerData.find(profile => profile.providerId === 'facebook.com');
+      if (fbProvider) {
+        volunteer.profilePictureUrl = `https://graph.facebook.com/${fbProvider.uid}/picture?height=200`;
+      }
+
       return volunteer;
     },
   },

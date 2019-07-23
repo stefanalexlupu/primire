@@ -70,5 +70,11 @@ export default new Router({
       component: () => import('./views/UserInfo.vue'),
       beforeEnter: requireAuth,
     },
+    {
+      path: '/me',
+      name: 'my-profile',
+      component: () => import('./views/MyProfile.vue'),
+      beforeEnter: requireAuth,
+    },
   ],
 });
