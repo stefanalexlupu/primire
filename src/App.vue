@@ -32,7 +32,7 @@
 
         <v-divider></v-divider>
 
-        <v-list-tile @click="$router.push('/')">
+        <v-list-tile @click="$router.push('/me')">
           <v-list-tile-title>Profilul Meu</v-list-tile-title>
         </v-list-tile>
         <v-list-tile @click="$router.push('/about')">
