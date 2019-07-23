@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import status from '../util/status';
+
 export default {
   data() {
     return {
@@ -41,7 +43,7 @@ export default {
       this.userName = userData.name;
       this.history = userData.history;
       this.status = userData.status;
-      if (userData.status === 'active') {
+      if (userData.status === status.ACTIVE) {
         this.activePosition = userData.activeVolunteering;
       }
       if (userData.defaultRole) {

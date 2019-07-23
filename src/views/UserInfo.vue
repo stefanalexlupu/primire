@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import status from '../util/status';
+import { roles } from '../util/roles';
 
 export default {
   data() {
@@ -90,12 +92,12 @@ export default {
         name: this.name,
         gender: this.gender,
         profilePictureUrl: '',
-        status: 'not-registered',
+        status: status.NOT_REGISTERED,
         history: [],
       };
 
       if (this.isPrayerTeam) {
-        volunteer.defaultRole = 'rugaciune';
+        volunteer.defaultRole = roles.RUGACIUNE;
       }
 
       // Try get the facebook profile picture at 250px;
