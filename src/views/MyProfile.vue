@@ -1,6 +1,9 @@
 <template>
-<v-container>
-  <v-layout column align-center>
+<v-container :fill-height="loading">
+  <v-layout v-if="loading" justify-center align-center>
+    <v-progress-circular color="primary" size="100" indeterminate />
+  </v-layout>
+  <v-layout v-else column align-center>
     <!-- TODO: Remove the following content: -->
     <div>
       <p>User name: {{userName}}</p>
@@ -51,6 +54,8 @@ export default {
       }
 
       this.profilePicture = userData.profilePictureUrl;
+
+      this.loading = false;
     }, (/* error */) => {
       // handle closed connection error
     });
