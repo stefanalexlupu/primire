@@ -38,4 +38,16 @@ positionRoleMap.set(positions.SECTOR_EST, roles.SECTOARE);
 positionRoleMap.set(positions.SECTOR_VEST, roles.SECTOARE);
 positionRoleMap.set(positions.RUGACIUNE, roles.RUGACIUNE);
 
+const roleColorsMap = new Map();
+roleColorsMap.set(roles.GHIDARE, '#ffdd67');
+roleColorsMap.set(roles.PRIMIRE, '#acbd86');
+roleColorsMap.set(roles.SECTOARE, '#665c84');
+roleColorsMap.set(roles.RUGACIUNE, '#cf455c');
+
 export const positionRoles = Object.freeze(positionRoleMap);
+
+export const roleColors = Object.freeze(roleColorsMap);
+
+export function getPositionColor(position) {
+  return roleColorsMap.get(positionRoleMap.get(position));
+}

@@ -3,19 +3,15 @@
   <v-layout v-if="loading" justify-center align-center>
     <v-progress-circular color="primary" size="100" indeterminate />
   </v-layout>
-  <v-layout v-else column align-center>
-    <!-- TODO: Remove the following content: -->
-    <div>
-      <p>User name: {{userName}}</p>
-      <p>Profile pic:</p>
-      <img :src="profilePicture" alt="profile picture">
-      <p>Default role: {{defaultRole}}</p>
-      <p>Status: {{status}}</p>
-      <p>Active position: {{activePosition}}</p>
-      <p>History: {{history}}</p>
-    </div>
+  <v-layout v-else column align-center py-4>
+    <v-avatar class="mb-4" color="primary" :size="200">
+      <img v-if="profilePicture" :src="profilePicture" :alt="userName">
+      <span v-else class="initials">{{ initials }}</span>
+    </v-avatar>
+    <h2 class="font-weight-light">Bine ai venit,</h2>
+    <h1 class="font-weight-regular">{{ userName }}</h1>
 
-    <!-- TODO: Profile Picture and Name and default role component -->
+    <role :role="defaultRole" class="my-2"/>
     <!-- TODO: Status component (registration action, status) -->
     <!-- TODO: History component -->
   </v-layout>
@@ -24,17 +20,20 @@
 
 <script>
 import status from '../util/status';
+import Role from '../components/Role.vue';
 
 export default {
+  components: { Role },
   data() {
     return {
       loading: true,
       userName: '',
+      initials: '',
       history: [],
       status: '',
       activePosition: '',
       defaultRole: '',
-      profilePicture: '',
+      profilePicture: null,
     };
   },
   mounted() {
@@ -44,6 +43,7 @@ export default {
       const userData = snapshot.data();
 
       this.userName = userData.name;
+      this.initials = this.userName.split(' ').map(token => token[0]).join('');
       this.history = userData.history;
       this.status = userData.status;
       if (userData.status === status.ACTIVE) {
@@ -53,7 +53,10 @@ export default {
         this.defaultRole = userData.defaultRole;
       }
 
-      this.profilePicture = userData.profilePictureUrl;
+      if (userData.profilePictureUrl !== '') {
+        this.profilePicture = userData.profilePictureUrl;
+      }
+
 
       this.loading = false;
     }, (/* error */) => {
@@ -62,3 +65,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.initials {
+  font-size: 100px;
+  color: white;
+}
+</style>
