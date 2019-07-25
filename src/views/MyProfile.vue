@@ -14,7 +14,7 @@
     <role :role="defaultRole" class="my-2"/>
     <!-- TODO: Status component (registration action, status) -->
     <div class="content-card elevation-5">
-      <div v-if="status === 'not-registered'">
+      <div v-if="status === 'not-registered' && !isSunday">
         <v-dialog v-model="registerDialog">
           <v-card>
             <v-card-text>
@@ -31,7 +31,7 @@
         <v-btn color="primary" @click="registerDialog = true">DA!</v-btn>
       </div>
 
-      <div v-else-if="status === 'registered'">
+      <div v-if="status === 'registered' && !isSunday">
         <v-dialog v-model="unRegisterDialog">
           <v-card>
             <v-card-text>
@@ -52,7 +52,7 @@
         </v-chip>
       </div>
 
-      <div v-else-if="status === 'active'">
+      <div v-if="status === 'active'">
         <v-chip label outline :color="activeColor">
           {{ activePosition }}
         </v-chip>
@@ -92,6 +92,9 @@ export default {
     },
     thisSunday() {
       return moment().locale('ro').day(7);
+    },
+    isSunday() {
+      return moment().day() === 7;
     },
   },
   mounted() {
