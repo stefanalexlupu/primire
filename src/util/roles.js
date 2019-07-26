@@ -3,6 +3,7 @@ export const roles = Object.freeze({
   PRIMIRE: 'primire',
   SECTOARE: 'sectoare',
   RUGACIUNE: 'rugaciune',
+  NIL: 'n/a',
 });
 
 export const positions = Object.freeze({
@@ -21,6 +22,7 @@ export const positions = Object.freeze({
   SECTOR_CENTRU: 'sector centru',
   SECTOR_VEST: 'sector vest',
   RUGACIUNE: 'rugaciune',
+  NIL: 'n/a',
 });
 
 const positionRoleMap = new Map();
@@ -37,12 +39,14 @@ positionRoleMap.set(positions.SECTOR_E, roles.SECTOARE);
 positionRoleMap.set(positions.SECTOR_EST, roles.SECTOARE);
 positionRoleMap.set(positions.SECTOR_VEST, roles.SECTOARE);
 positionRoleMap.set(positions.RUGACIUNE, roles.RUGACIUNE);
+positionRoleMap.set(positions.NIL, roles.NIL);
 
 const roleColorsMap = new Map();
 roleColorsMap.set(roles.GHIDARE, '#ffdd67');
-roleColorsMap.set(roles.PRIMIRE, '#acbd86');
+roleColorsMap.set(roles.PRIMIRE, '#a1dd70');
 roleColorsMap.set(roles.SECTOARE, '#665c84');
 roleColorsMap.set(roles.RUGACIUNE, '#cf455c');
+roleColorsMap.set(roles.NIL, '#fdfdfd');
 
 export const positionRoles = Object.freeze(positionRoleMap);
 

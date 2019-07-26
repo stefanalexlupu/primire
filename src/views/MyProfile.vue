@@ -12,7 +12,7 @@
     <h1 class="font-weight-medium">{{ userName }}</h1>
 
     <role :role="defaultRole" class="my-2"/>
-    <!-- TODO: Status component (registration action, status) -->
+
     <div class="content-card elevation-5">
       <div v-if="status === 'not-registered' && !isSunday">
         <v-dialog v-model="registerDialog">
@@ -58,7 +58,7 @@
         </v-chip>
       </div>
 
-    <!-- TODO: History component -->
+    <history :value="history" class="mt-2"/>
     </div>
 
   </v-layout>
@@ -69,9 +69,10 @@
 import moment from 'moment';
 import status from '../util/status';
 import Role from '../components/Role.vue';
+import History from '../components/History.vue';
 
 export default {
-  components: { Role },
+  components: { Role, History },
   data() {
     return {
       registerDialog: false,
@@ -155,7 +156,7 @@ export default {
   position: relative;
   bottom: -40px;
   margin-top: -20px;
-  background-color: #feffdb;
+  background-color: #fffff0;
   width: 90%;
   min-height: 260px;
   border-top-left-radius: 10px;
