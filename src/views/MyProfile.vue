@@ -11,7 +11,7 @@
     <h2 class="font-weight-regular">Bine ai venit,</h2>
     <h1 class="font-weight-medium">{{ userName }}</h1>
 
-    <role :role="defaultRole" class="my-2"/>
+    <role v-if="defaultRole" :role="defaultRole" class="my-2"/>
 
     <div class="content-card elevation-5">
       <div v-if="status === 'not-registered' && !isSunday">

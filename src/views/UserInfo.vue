@@ -78,6 +78,8 @@ export default {
         return;
       }
 
+      // TODO: if user is not a new user, make sure to merge with existing data
+      // in order not to lose history.
       this.$firestore().collection('volunteers').doc(this.$auth().currentUser.uid).set(this.makeVolunteer())
         .then(() => {
           this.$router.push('/');
