@@ -13,7 +13,7 @@
 
     <role v-if="defaultRole" :role="defaultRole" class="my-2"/>
 
-    <div class="content-card elevation-5">
+    <div class="content-card elevation-5 mt-3">
       <div v-if="status === 'not-registered' && !isSunday">
         <v-dialog v-model="registerDialog">
           <v-card>
@@ -58,7 +58,7 @@
         </v-chip>
       </div>
 
-    <history :value="history" class="mt-2"/>
+    <history v-if="history" :value="history" />
     </div>
 
   </v-layout>
@@ -107,7 +107,7 @@ export default {
       this.userName = userData.name;
       this.initials = this.userName.split(' ').map(token => token[0]).join('');
       this.history = userData.history;
-      this.status = userData.status;
+      this.status = userData.status || status.NOT_REGISTERED;
       if (userData.status === status.ACTIVE) {
         this.activePosition = userData.activeVolunteering;
       }
@@ -154,13 +154,9 @@ export default {
 
 .content-card {
   position: relative;
-  bottom: -40px;
-  margin-top: -20px;
   background-color: #fffff0;
   width: 90%;
-  min-height: 260px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-radius: 10px;
   padding: 1em;
   text-align: center;
   color: #444444;

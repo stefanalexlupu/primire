@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import status from '../util/status';
 import { roles } from '../util/roles';
 
 export default {
@@ -80,7 +79,7 @@ export default {
 
       // TODO: if user is not a new user, make sure to merge with existing data
       // in order not to lose history.
-      this.$firestore().collection('volunteers').doc(this.$auth().currentUser.uid).set(this.makeVolunteer())
+      this.$firestore().collection('volunteers').doc(this.$auth().currentUser.uid).set({ ...this.makeVolunteer() }, { merge: true })
         .then(() => {
           this.$router.push('/');
         })
@@ -94,12 +93,12 @@ export default {
         name: this.name,
         gender: this.gender,
         profilePictureUrl: '',
-        status: status.NOT_REGISTERED,
-        history: [],
       };
 
       if (this.isPrayerTeam) {
         volunteer.defaultRole = roles.RUGACIUNE;
+      } else {
+        volunteer.defaultRole = null;
       }
 
       // Try get the facebook profile picture at 250px;
