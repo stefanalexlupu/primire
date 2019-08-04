@@ -92,10 +92,10 @@ export default {
       return 'red';
     },
     thisSunday() {
-      return moment().locale('ro').day(7);
+      return moment().day(7);
     },
     isSunday() {
-      return moment().day() === 7;
+      return moment().day() === 0;
     },
   },
   mounted() {
