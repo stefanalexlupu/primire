@@ -77,6 +77,12 @@ export default new Router({
       beforeEnter: requireAdmin,
     },
     {
+      path: '/team/:id',
+      name: 'team-id',
+      component: () => import('./views/VolunteerProfile'),
+      beforeEnter: requireAdmin,
+    },
+    {
       path: '/me',
       name: 'my-profile',
       component: () => import('./views/MyProfile.vue'),

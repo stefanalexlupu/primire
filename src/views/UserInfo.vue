@@ -24,7 +24,11 @@
               />
 
               <p>Sunt:</p>
-              <v-radio-group v-model="gender" :rules="genderRules" mandatory>
+              <v-radio-group
+                v-model="gender"
+                :rules="genderRules"
+                mandatory :disabled="isExistingUser"
+              >
                 <v-radio label="Baiat" value="M" />
                 <v-radio label="Fata" value="F" />
               </v-radio-group>
@@ -66,7 +70,25 @@ export default {
       loading: false,
       error: '',
       uid: '',
+      isExistingUser: false,
     };
+  },
+
+  mounted() {
+    const userDocRef = this.$firestore().doc(`/volunteers/${this.$auth().currentUser.uid}`);
+    userDocRef.onSnapshot((snapshot) => {
+      // update user interface with snapshot data
+      const userData = snapshot.data();
+      this.name = userData.name;
+
+      if (userData.defaultRole) {
+        this.isPrayerTeam = true;
+      }
+      this.gender = userData.gender;
+      this.isExistingUser = true;
+    }, (/* error */) => {
+      // handle closed connection error
+    });
   },
 
   methods: {

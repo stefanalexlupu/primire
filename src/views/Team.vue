@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-layout>
+    <v-layout v-if="volunteers.length">
       <v-flex xs6 sm4 md2 v-for="volunteer in volunteers" :key="volunteer.id">
         <volunteer-card :value="volunteer"/>
       </v-flex>
@@ -15,8 +15,21 @@ export default {
   components: { VolunteerCard },
   data() {
     return {
-      volunteers: [{ name: 'Alex Lupu', profilePictureUrl: 'https://timedotcom.files.wordpress.com/2014/09/macaca_nigra_self-portrait_rotated_and_cropped.jpg?quality=85&w=180', volunteerId: 'assd234edf2wdfs-1dvsx1-vdcqs1' }],
+      volunteers: [],
     };
+  },
+
+  mounted() {
+    const userDocRef = this.$firestore().doc('/team/volunteers');
+    userDocRef.onSnapshot((snapshot) => {
+      // update user interface with snapshot data
+      const teamData = snapshot.data();
+      this.volunteers = teamData.volunteers;
+      console.info(teamData.volunteers);
+      this.loading = false;
+    }, (/* error */) => {
+      // handle closed connection error
+    });
   },
 };
 </script>

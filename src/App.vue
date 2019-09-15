@@ -41,6 +41,13 @@
           <v-list-tile-title>Setari Cont</v-list-tile-title>
         </v-list-tile>
 
+        <v-divider></v-divider>
+        <v-subheader>Admin</v-subheader>
+
+        <v-list-tile @click="$router.push('/team')">
+          <v-list-tile-title>Echipa</v-list-tile-title>
+        </v-list-tile>
+
         <v-list-tile @click="onSignOut" class="bottom">
           <v-icon class="mr-2">exit_to_app</v-icon>
           <v-list-tile-title>Log Out</v-list-tile-title>
