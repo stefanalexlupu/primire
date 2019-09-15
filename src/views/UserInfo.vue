@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import { roles } from '../util/roles';
 
 export default {
   data() {
@@ -76,7 +77,9 @@ export default {
         return;
       }
 
-      this.$firestore().collection('volunteers').doc(this.$auth().currentUser.uid).set(this.makeVolunteer())
+      // TODO: if user is not a new user, make sure to merge with existing data
+      // in order not to lose history.
+      this.$firestore().collection('volunteers').doc(this.$auth().currentUser.uid).set({ ...this.makeVolunteer() }, { merge: true })
         .then(() => {
           this.$router.push('/');
         })
@@ -89,17 +92,21 @@ export default {
       const volunteer = {
         name: this.name,
         gender: this.gender,
-        sinceParter: 100,
-        sincePrimire: 100,
-        sinceSectoare: 100,
-        sinceRugaciune: 100,
-        history: [],
+        profilePictureUrl: '',
       };
 
       if (this.isPrayerTeam) {
-        volunteer.defaultRole = 'rugaciune';
+        volunteer.defaultRole = roles.RUGACIUNE;
+      } else {
+        volunteer.defaultRole = null;
       }
-      console.log(volunteer);
+
+      // Try get the facebook profile picture at 250px;
+      const fbProvider = this.$auth().currentUser.providerData.find(profile => profile.providerId === 'facebook.com');
+      if (fbProvider) {
+        volunteer.profilePictureUrl = `https://graph.facebook.com/${fbProvider.uid}/picture?height=200`;
+      }
+
       return volunteer;
     },
   },
