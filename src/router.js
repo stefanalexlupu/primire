@@ -70,5 +70,11 @@ export default new Router({
       component: () => import('./views/UserInfo.vue'),
       beforeEnter: requireAuth,
     },
+    {
+      path: '/team',
+      name: 'team',
+      component: () => import('./views/Team.vue'),
+      beforeEnter: requireAdmin,
+    },
   ],
 });
