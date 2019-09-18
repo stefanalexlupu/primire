@@ -88,5 +88,10 @@ export default new Router({
       component: () => import('./views/MyProfile.vue'),
       beforeEnter: requireAuth,
     },
+    {
+      path: '/on-the-go',
+      name: 'on-the-go',
+      component: () => import('./views/OnTheGo.vue'),
+    },
   ],
 });
